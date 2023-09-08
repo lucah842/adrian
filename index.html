@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Adrian</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        #countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            color: #ffbb00;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #content-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./media/giphy.gif);
+            z-index: 2;
+            display: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #content {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            border-radius: 10px; /* Add rounded corners */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-5 {
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  background: rgb(255,27,0);
+background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+}
+.btn-5:hover {
+  color: #f0094a;
+  background: transparent;
+   box-shadow:none;
+}
+.btn-5:before,
+.btn-5:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #f0094a;
+  box-shadow:
+   -1px -1px 5px 0px #fff,
+   7px 7px 20px 0px #0003,
+   4px 4px 5px 0px #0002;
+  transition:400ms ease all;
+}
+.btn-5:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.btn-5:hover:before,
+.btn-5:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="./media/vid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div id="countdown">10</div>
+    </div>
+
+    <div id="content-container">
+        <div id="content">
+            <center><h1>ALLES GUTE ZUM GEBURTSTAG ADRIAN!</h1></center>
+            <center><h1>MÖGE DIR MEIN GESCHENK GEFALLEN!</h1></center>
+            <center><iframe width="560" height="315" src="https://www.youtube.com/embed/6-acE5JFv18?si=leQn4xsg_z6wKpMS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center>
+            <center><button  id="playStopButton"  class="custom-btn btn-5"><span>Drück mich!</span></button></center>
+            <audio id="sound" src="./media/audio.mp3"></audio>
+        </div>
+    </div>
+
+    <script>
+        var countdownElement = document.getElementById("countdown");
+        var countdown = 10;
+
+        // Function to update the countdown element
+        function updateCountdown() {
+            countdownElement.textContent = countdown;
+        }
+
+        // Function to start the countdown
+        function startCountdown() {
+            updateCountdown();
+            var countdownInterval = setInterval(function() {
+                countdown--;
+                updateCountdown();
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("video-container").style.display = "none";
+                    document.getElementById("content-container").style.display = "block";
+                }
+            }, 1000); // Update every 1 second
+        }
+
+        // Start the countdown after the video is loaded
+        document.getElementById("background-video").addEventListener("loadeddata", startCountdown);
+
+        var sound = document.getElementById("sound");
+    var playStopButton = document.getElementById("playStopButton");
+    var isPlaying = false;
+
+    playStopButton.addEventListener("click", function () {
+      if (isPlaying) {
+        sound.pause();
+        sound.currentTime = 0;
+        playStopButton.innerHTML = "Play Sound";
+      } else {
+        sound.play();
+        playStopButton.innerHTML = "Stop Sound";
+      }
+      isPlaying = !isPlaying;
+    });
+    </script>
+</body>
+</html>
